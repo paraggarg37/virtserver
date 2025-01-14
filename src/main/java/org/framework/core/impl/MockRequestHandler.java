@@ -31,6 +31,7 @@ public class MockRequestHandler implements RequestHandler {
 
         for (BaseRoute route : routes) {
             if (route.matchRequest(request)) {
+                System.out.println("request matched");
                 return route.geResponse(context, request);
             }
         }

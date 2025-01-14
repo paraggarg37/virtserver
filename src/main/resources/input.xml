@@ -1,0 +1,36 @@
+<con:virtualService name="SampleVirtualService" xmlns:con="http://www.readyapi.com/namespace">
+    <con:meta>
+        <con:description>This is a sample virtual service for REST</con:description>
+    </con:meta>
+    <con:dispatchPath>
+        <con:restmockAction resourcePath="/example" method="POST">
+            <con:dispatchPath>log.info("Hello world, inside groovy")
+
+                return "successResponse"
+            </con:dispatchPath>
+            <con:dispatchStyle>SEQUENCE</con:dispatchStyle>
+            <con:response name="SuccessResponse" httpResponseStatus="200" mediaType="application/json">
+                <con:responseContent>{"message": "Operation Successful"}</con:responseContent>
+                <con:headers>
+                    <con:header name="Content-Type">application/json</con:header>
+                </con:headers>
+            </con:response>
+            <con:response name="ErrorResponse" httpResponseStatus="400" mediaType="application/json">
+                <con:responseContent>{"message": "Bad Request"}</con:responseContent>
+                <con:headers>
+                    <con:header name="Content-Type">application/json</con:header>
+                </con:headers>
+            </con:response>
+        </con:restmockAction>
+        <con:restmockAction resourcePath="/another" method="GET">
+            <con:dispatchStyle>RANDOM</con:dispatchStyle>
+
+            <con:response name="DefaultResponse" httpResponseStatus="200" mediaType="application/json">
+                <con:responseContent>{"message": "Default Response"}</con:responseContent>
+                <con:headers>
+                    <con:header name="Content-Type">application/json</con:header>
+                </con:headers>
+            </con:response>
+        </con:restmockAction>
+    </con:dispatchPath>
+</con:virtualService>

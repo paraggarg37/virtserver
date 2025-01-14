@@ -17,15 +17,23 @@ public class GroovyScriptResponseGenerator implements ResponseGenerator {
 
     @Override
     public String GenerateResponse(Context context, MockRequest request) {
-        Binding binding = new Binding();
+        if (script == null || script.isEmpty()){
+            return null;
+        }
+        try {
+            Binding binding = new Binding();
 
-        binding.setVariable("context", context);
-        binding.setVariable("mockRequest", request);
-        binding.setVariable("log", Logger.getInstance());
+            binding.setVariable("context", context);
+            binding.setVariable("mockRequest", request);
+            binding.setVariable("log", Logger.getInstance());
 
-        GroovyShell shell = new GroovyShell(binding);
-        Object object =  shell.evaluate(script);
+            GroovyShell shell = new GroovyShell(binding);
+            Object object = shell.evaluate(script);
 
-        return (String) object;
+            return (String) object;
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
     }
 }
