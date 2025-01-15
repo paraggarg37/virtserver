@@ -50,6 +50,9 @@ public class Logger {
         }
     }
 
+    public void logObject(Object o){
+        System.out.println(o);
+    }
     // Convenience methods for different log levels
     public void info(String message) {
         log(LogLevel.INFO, message);

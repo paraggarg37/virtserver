@@ -8,6 +8,7 @@ import org.framework.properties.Context;
 import org.framework.properties.MockRequest;
 import org.framework.utils.Logger;
 
+import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
@@ -20,14 +21,13 @@ public class MockRequestHandler implements RequestHandler {
     }
 
     @Override
-    public MockResponse handleRequest(Context context, MockRequest request) {
+    public MockResponse handleRequest(Context context, MockRequest request) throws UnsupportedEncodingException {
 
         String method = request.getMethod();
         String path = request.getPath();
 
         Logger.getInstance().info("Method : " + method);
         Logger.getInstance().info("Path : " + path);
-
 
         for (BaseRoute route : routes) {
             if (route.matchRequest(request)) {

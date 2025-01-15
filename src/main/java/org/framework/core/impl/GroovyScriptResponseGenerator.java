@@ -15,6 +15,7 @@ public class GroovyScriptResponseGenerator implements ResponseGenerator {
         this.script= script;
     }
 
+
     @Override
     public String GenerateResponse(Context context, MockRequest request) {
         if (script == null || script.isEmpty()){
@@ -29,7 +30,7 @@ public class GroovyScriptResponseGenerator implements ResponseGenerator {
 
             GroovyShell shell = new GroovyShell(binding);
             Object object = shell.evaluate(script);
-
+            System.out.println("script "+(String) object);
             return (String) object;
         }catch (Exception e){
             e.printStackTrace();

@@ -24,9 +24,19 @@
         </con:restmockAction>
         <con:restmockAction resourcePath="/another" method="GET">
             <con:dispatchStyle>RANDOM</con:dispatchStyle>
+            <con:dispatchPath>log.info("Hello world, inside get")
+                log.logObject(context.mockService)
+                 context.mockService.setPropertyValue("account", "12345");
+                context.name = "vaishali"
+                return "DefaultResponse"
+            </con:dispatchPath>
 
             <con:response name="DefaultResponse" httpResponseStatus="200" mediaType="application/json">
-                <con:responseContent>{"message": "Default Response"}</con:responseContent>
+                <con:responseContent>{
+                    "message": "Default Response",
+                    "warning": "${#MockService#account}"
+                    "name": ${name}
+                    }</con:responseContent>
                 <con:headers>
                     <con:header name="Content-Type">application/json</con:header>
                 </con:headers>

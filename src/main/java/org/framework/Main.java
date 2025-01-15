@@ -36,6 +36,7 @@ public class Main {
 
             AbstractService restService = new RestService(config);
             restService.start();
+
         }
         catch (Exception e){
             e.printStackTrace();

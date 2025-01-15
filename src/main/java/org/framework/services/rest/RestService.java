@@ -29,11 +29,13 @@ public class RestService extends AbstractService {
         }
         server.setExecutor(executor);
         server.start();
+        AbstractService that = this;
 
         server.createContext("/", new HttpHandler() {
             @Override
             public void handle(HttpExchange exchange) throws IOException {
-                    MockResponse response = config.getRequestHandler().handleRequest(new Context(), getRequest(exchange));
+                Context context = new Context(that);
+                    MockResponse response = config.getRequestHandler().handleRequest(context, getRequest(exchange));
 
                    //setHeaders
                     Headers headers = response.getHeaders();
